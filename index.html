@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>pic_to_base64</title>
+</head>
+<body>
+	<input id="upload" type="file" >
+	<textarea id="info_for_pic" cols="40" rows="20" placeholder="图片的base64码" readOnly style="padding: 8px;"></textarea>
+	<img id="img" src="">
+</body>
+</html>
+<script type="text/javascript">
+	var upload = document.getElementById('upload');
+	var info_for_pic = document.getElementById('info_for_pic');
+	var img = document.getElementById('img');
+
+	upload.addEventListener('change',function(){
+		console.log(this.files[0]);
+		var info_file = this.files[0];
+		if(info_file && !/image/.test(info_file.type)){
+			alert('请选择图像文件');
+			return;
+		}
+
+
+		var reader = new FileReader();
+		reader.readAsDataURL(info_file);
+		reader.onload = function(){
+			console.log(this);
+			info_for_pic.innerHTML = this.result;
+			img.setAttribute('src',this.result);
+		}
+	});
+</script>
